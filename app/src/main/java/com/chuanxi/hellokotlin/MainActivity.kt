@@ -10,6 +10,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val items = listOf(
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mtoolbar)
         mtoolbar.title = resources.getString(R.string.app_name)
 
-        val forecast_list = findViewById(R.id.forecast_list) as RecyclerView
+        val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
         forecast_list.adapter = ForecastListAdapter(items)
 
