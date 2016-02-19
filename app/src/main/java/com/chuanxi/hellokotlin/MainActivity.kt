@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.*
 import java.util.*
+import java.util.concurrent.Future
 
 class MainActivity : AppCompatActivity() {
     private val items = listOf(
@@ -32,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
         forecast_list.adapter = ForecastListAdapter(items)
+        async() {
+            Request("http://www.baidu.com").run()
+            uiThread { longToast("request seccuss") }
+        }
 
     }
+
 }
