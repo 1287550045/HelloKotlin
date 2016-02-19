@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.chuanxi.hellokotlin.domain.Forecast
 import com.chuanxi.hellokotlin.domain.RequestForecastCommand
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -28,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         async() {
             val result = RequestForecastCommand("94043").execute()
             uiThread{
-                forecast_list.adapter = ForecastListAdapter(result)
+                forecast_list.adapter = ForecastListAdapter(result,object : ForecastListAdapter.OnItemClickListener {
+                    override fun invoke(forecast: Forecast) {
+                        toast(forecast.date)
+                    }
+                })
             }
         }
 //        val f1 = Forecast(Date(),25.6f,"test")
