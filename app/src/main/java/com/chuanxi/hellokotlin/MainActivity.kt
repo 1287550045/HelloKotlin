@@ -24,16 +24,16 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mtoolbar)
         mtoolbar.title = resources.getString(R.string.app_name)
 
-        val forecast_list:RecyclerView = find(R.id.forecast_list)
+//        val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
         async() {
             val result = RequestForecastCommand("94043").execute()
             uiThread{
-                forecast_list.adapter = ForecastListAdapter(result,object : ForecastListAdapter.OnItemClickListener {
-                    override fun invoke(forecast: Forecast) {
-                        toast(forecast.date)
+                forecast_list.adapter = ForecastListAdapter(result){
+                    withIt(it) {
+                        loge("date = ${date}")
                     }
-                })
+                }
             }
         }
 //        val f1 = Forecast(Date(),25.6f,"test")
@@ -45,4 +45,9 @@ class MainActivity : AppCompatActivity() {
     public fun Context.loge(msg:String) {
         Log.e(this.javaClass.simpleName,msg)
     }
+
+    fun <T> withIt(t : T, body : T.() -> Unit) {
+        t.body()
+    }
+
 }

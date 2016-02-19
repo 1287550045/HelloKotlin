@@ -5,7 +5,7 @@ import com.chuanxi.hellokotlin.data.ForecastRequest
 /**
  * Created by tangjunjie on 2016/2/19.
  */
-class RequestForecastCommand(val zipCode: String) :
+class RequestForecastCommand(private val zipCode: String) :
         Command<ForecastList> {
     override fun execute(): ForecastList {
         val forecastRequest = ForecastRequest(zipCode)
