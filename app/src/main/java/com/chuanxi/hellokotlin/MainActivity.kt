@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.chuanxi.hellokotlin.domain.RequestForecastCommand
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.*
@@ -16,16 +17,6 @@ import java.util.*
 import java.util.concurrent.Future
 
 class MainActivity : AppCompatActivity() {
-    private val items = listOf(
-            "Mon 6/23 - Sunny - 31/17",
-            "Tue 6/24 - Foggy - 21/8",
-            "Wed 6/25 - Cloudy - 22/17",
-            "Thurs 6/26 - Rainy - 18/11",
-            "Fri 6/27 - Foggy - 21/10",
-            "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-            "Sun 6/29 - Sunny - 20/7"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,16 +25,17 @@ class MainActivity : AppCompatActivity() {
 
         val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
-        forecast_list.adapter = ForecastListAdapter(items)
-//        async() {
-//            Request("http://www.baidu.com").run()
-//            uiThread { longToast("request seccuss") }
-//        }
-        val f1 = Forecast(Date(),25.6f,"test")
-        val f2 = f1.copy(temperature = 28.9f)
-        loge("f2.temperature = ${f2.temperature}")
-        val (date,temperature,details) = f2
-        loge("date=$date,temperature=$temperature,details=$details")
+        async() {
+            val result = RequestForecastCommand("94043").execute()
+            uiThread{
+                forecast_list.adapter = ForecastListAdapter(result)
+            }
+        }
+//        val f1 = Forecast(Date(),25.6f,"test")
+//        val f2 = f1.copy(temperature = 28.9f)
+//        loge("f2.temperature = ${f2.temperature}")
+//        val (date,temperature,details) = f2
+//        loge("date=$date,temperature=$temperature,details=$details")
     }
     public fun Context.loge(msg:String) {
         Log.e(this.javaClass.simpleName,msg)

@@ -1,5 +1,6 @@
 package com.chuanxi.hellokotlin.data
 
+import android.util.Log
 import com.google.gson.Gson
 import java.net.URL
 /**
@@ -16,6 +17,7 @@ class ForecastRequest(val zipCode:String) {
 
     public fun execute(): ForecastResult {
         val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
+        Log.e(javaClass.simpleName,forecastJsonStr)
         return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
     }
 }
