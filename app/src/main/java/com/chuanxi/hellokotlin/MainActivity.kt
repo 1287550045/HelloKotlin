@@ -1,10 +1,12 @@
 package com.chuanxi.hellokotlin
 
+import android.content.Context
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,11 +35,17 @@ class MainActivity : AppCompatActivity() {
         val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
         forecast_list.adapter = ForecastListAdapter(items)
-        async() {
-            Request("http://www.baidu.com").run()
-            uiThread { longToast("request seccuss") }
-        }
-
+//        async() {
+//            Request("http://www.baidu.com").run()
+//            uiThread { longToast("request seccuss") }
+//        }
+        val f1 = Forecast(Date(),25.6f,"test")
+        val f2 = f1.copy(temperature = 28.9f)
+        loge("f2.temperature = ${f2.temperature}")
+        val (date,temperature,details) = f2
+        loge("date=$date,temperature=$temperature,details=$details")
     }
-
+    public fun Context.loge(msg:String) {
+        Log.e(this.javaClass.simpleName,msg)
+    }
 }
