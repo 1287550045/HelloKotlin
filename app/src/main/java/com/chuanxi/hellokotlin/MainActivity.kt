@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.chuanxi.hellokotlin.domain.Forecast
 import com.chuanxi.hellokotlin.domain.RequestForecastCommand
+import com.chuanxi.hellokotlin.ui.App
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.*
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 forecast_list.adapter = ForecastListAdapter(result){
                     withIt(it) {
                         loge("date = ${date}")
+                        loge("app = ${App.instance}")
                     }
                 }
             }
