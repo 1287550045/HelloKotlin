@@ -13,6 +13,9 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import kotlinx.android.synthetic.main.item_forecast.view.*
+import java.text.DateFormat
+import java.util.*
+
 /**
  * Created by tangjunjie on 2016/2/18.
  */
@@ -35,12 +38,16 @@ public class ForecastListAdapter(val weekForecast: ForecastList,val itemClick: (
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = convertDate(date)
                 itemView.description.text = description
                 itemView.maxTemperature.text = "${high.toString()}"
                 itemView.minTemperature.text = "${low.toString()}"
                 itemView.onClick { itemClick(forecast) }
             }
+        }
+        private fun convertDate(date: Long): String {
+            val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            return df.format(date * 1000)
         }
     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.chuanxi.hellokotlin.domain.Forecast
 import com.chuanxi.hellokotlin.domain.RequestForecastCommand
 import com.chuanxi.hellokotlin.ui.App
+import junit.framework.Assert
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.*
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mtoolbar)
         mtoolbar.title = resources.getString(R.string.app_name)
 
-//        val forecast_list:RecyclerView = find(R.id.forecast_list)
         forecast_list.layoutManager = LinearLayoutManager(this)
         async() {
             val result = RequestForecastCommand("94043").execute()
@@ -38,11 +38,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-//        val f1 = Forecast(Date(),25.6f,"test")
-//        val f2 = f1.copy(temperature = 28.9f)
-//        loge("f2.temperature = ${f2.temperature}")
-//        val (date,temperature,details) = f2
-//        loge("date=$date,temperature=$temperature,details=$details")
     }
     public fun Context.loge(msg:String) {
         Log.e(this.javaClass.simpleName,msg)
