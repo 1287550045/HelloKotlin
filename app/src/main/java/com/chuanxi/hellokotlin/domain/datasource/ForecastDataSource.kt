@@ -1,5 +1,6 @@
 package com.chuanxi.hellokotlin.domain.datasource
 
+import com.chuanxi.hellokotlin.domain.Forecast
 import com.chuanxi.hellokotlin.domain.ForecastList
 
 /**
@@ -8,5 +9,5 @@ import com.chuanxi.hellokotlin.domain.ForecastList
 interface ForecastDataSource {
 
     fun requestForecastByZipCode(zipCode:Long,date:Long) : ForecastList?
-
+    fun requestDayForecast(id: Long): Forecast?
 }

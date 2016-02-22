@@ -25,3 +25,5 @@ public fun <T : Any> SelectQueryBuilder.parseOpt(
 public fun SQLiteDatabase.clear(table_name:String) {
     this.execSQL("delete from ${table_name}")
 }
+
+public fun SelectQueryBuilder.byId(id:Long) : SelectQueryBuilder = whereSimple("_id=?",id.toString())

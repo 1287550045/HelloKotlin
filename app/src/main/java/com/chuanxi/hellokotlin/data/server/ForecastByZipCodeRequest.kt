@@ -1,12 +1,13 @@
-package com.chuanxi.hellokotlin.data
+package com.chuanxi.hellokotlin.data.server
 
 import android.util.Log
+import com.chuanxi.hellokotlin.data.ForecastResult
 import com.google.gson.Gson
-import java.net.URL
+
 /**
- * Created by tangjunjie on 2016/2/19.
+ * Created by tangjunjie on 2016/2/22.
  */
-class ForecastRequest(val zipCode: Long, val gson: Gson = Gson()) {
+class ForecastByZipCodeRequest(val zipCode: Long, val gson: Gson = Gson()) {
 
     companion object {
         private val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"
@@ -16,8 +17,8 @@ class ForecastRequest(val zipCode: Long, val gson: Gson = Gson()) {
     }
 
     public fun execute(): ForecastResult {
-        val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
-        Log.e(javaClass.simpleName,forecastJsonStr)
+        val forecastJsonStr = java.net.URL(COMPLETE_URL + zipCode).readText()
+        Log.e(javaClass.simpleName, forecastJsonStr)
         return gson.fromJson(forecastJsonStr, ForecastResult::class.java)
     }
 }
