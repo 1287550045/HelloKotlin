@@ -4,9 +4,11 @@ import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.chuanxi.hellokotlin.R
+import com.chuanxi.hellokotlin.SettingsActivity
 import com.chuanxi.hellokotlin.ctx
 import com.chuanxi.hellokotlin.extensions.slideEnter
 import com.chuanxi.hellokotlin.extensions.slideExit
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -24,7 +26,7 @@ interface  ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when(it.itemId) {
-                R.id.action_settings -> App.instance.toast("settings")
+                R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true
@@ -38,9 +40,8 @@ interface  ToolbarManager {
         }
     }
 
-    fun createUpDrawable() = with(DrawerArrowDrawable(toolbar.ctx)) {
+    fun createUpDrawable() = DrawerArrowDrawable(toolbar.ctx).apply {
         progress = 1f
-            this
     }
 
     fun attachToScroll(recyclerView: RecyclerView) {
