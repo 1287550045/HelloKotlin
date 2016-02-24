@@ -3,6 +3,7 @@ package com.chuanxi.hellokotlin.ui
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import com.chuanxi.hellokotlin.BehaviorActivity
 import com.chuanxi.hellokotlin.R
 import com.chuanxi.hellokotlin.SettingsActivity
 import com.chuanxi.hellokotlin.ctx
@@ -26,7 +27,7 @@ interface  ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when(it.itemId) {
-                R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
+                R.id.action_settings -> toolbar.ctx.startActivity<BehaviorActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true
